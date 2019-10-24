@@ -1,4 +1,3 @@
 export PYTHONPATH=`pwd`
 MODEL=$1
-python training_ptr_gen/decode.py $MODEL >& ../log/decode_log &
-
+CUDA_VISIBLE_DEVICES="1" /home/dmlab/anaconda3/bin/python3 training_ptr_gen/decode.py

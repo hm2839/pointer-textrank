@@ -1,5 +1,5 @@
 export PYTHONPATH=`pwd`
 MODEL_PATH=$1
 MODEL_NAME=$(basename $MODEL_PATH)
-python training_ptr_gen/eval.py $MODEL_PATH >& ../log/eval_log.$MODEL_NAME &
+CUDA_VISIBLE_DEVICES="1" /home/dmlab/anaconda3/bin/python3 training_ptr_gen/eval.py
 
