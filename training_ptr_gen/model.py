@@ -196,7 +196,8 @@ class Decoder(nn.Module):
             h_decoder, c_decoder = s_t_1
             s_t_hat = torch.cat((h_decoder.view(-1, config.hidden_dim),
                                  c_decoder.view(-1, config.hidden_dim)), 1)  # B x 2*hidden_dim
-            c_t, _, coverage_next = self.attention_network
+            c_t, _, coverage_next = self.attention_network(s_t_hat, encoder_outputs, encoder_feature,
+                                                               enc_padding_mask, coverage, wr_attention)
             coverage = coverage_next
 
         y_t_1_embd = self.embedding(y_t_1)
