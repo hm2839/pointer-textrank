@@ -44,27 +44,27 @@ def init_wt_unif(wt):
     wt.data.uniform_(-config.rand_unif_init_mag, config.rand_unif_init_mag)
 
 
-class PositionalEncoding(nn.Module):
-    def __init__(self, d_model, len, dropout=None):
-        super(PositionalEncoding, self).__init__()
-        self.len = len
-        if dropout is not None:
-            self.dropout = nn.Dropout(p=dropout)
-        else:
-            self.dropout = None
-        pe = torch.zeros(self.len, d_model)  # len x D
-        position = torch.arange(0, self.len).float().unsqueeze(1)  # len x 1
-        div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-(math.log(10000.0) / d_model)))  # D/2
-        pe[:, 0::2] = torch.sin(position * div_term)
-        pe[:, 1::2] = torch.cos(position * div_term)
-        pe = pe.unsqueeze(0)  # 1 x len x D
-        self.register_buffer('pe', pe)
-
-    def forward(self):
-        if self.droupout is not None:
-            return self.dropout(self.pe[:, :self.len])
-        else:
-            return self.pe[:, :self.len]
+# class PositionalEncoding(nn.Module):
+#     def __init__(self, d_model, len, dropout=None):
+#         super(PositionalEncoding, self).__init__()
+#         self.len = len
+#         if dropout is not None:
+#             self.dropout = nn.Dropout(p=dropout)
+#         else:
+#             self.dropout = None
+#         pe = torch.zeros(self.len, d_model)  # len x D
+#         position = torch.arange(0, self.len).float().unsqueeze(1)  # len x 1
+#         div_term = torch.exp(torch.arange(0, d_model, 2).float() * (-(math.log(10000.0) / d_model)))  # D/2
+#         pe[:, 0::2] = torch.sin(position * div_term)
+#         pe[:, 1::2] = torch.cos(position * div_term)
+#         pe = pe.unsqueeze(0)  # 1 x len x D
+#         self.register_buffer('pe', pe)
+#
+#     def forward(self):
+#         if self.droupout is not None:
+#             return self.dropout(self.pe[:, :self.len])
+#         else:
+#             return self.pe[:, :self.len]
 
 
 class Encoder(nn.Module):
