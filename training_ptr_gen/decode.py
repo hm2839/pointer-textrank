@@ -58,7 +58,7 @@ class BeamSearch(object):
                 os.mkdir(p)
 
         self.vocab = Vocab(config.vocab_path, config.vocab_size)
-        self.batcher = Batcher(config.decode_data_path, self.vocab, mode='decode',
+        self.batch0er = Batcher(config.decode_data_path, self.vocab, mode='decode',
                                batch_size=config.beam_size, single_pass=True)
         time.sleep(15)
 
@@ -105,7 +105,7 @@ class BeamSearch(object):
 
     def beam_search(self, batch):
         # batch should have only one example
-        enc_batch, enc_padding_mask, enc_lens, enc_batch_extend_vocab, extra_zeros, c_t_0, coverage_t_0 = \
+        enc_batch, enc_padding_mask, enc_lens, enc_batch_extend_vocab, extra_zeros, c_t_0, coverage_t_0, wr_attention = \
             get_input_from_batch(batch, use_cuda)
 
         encoder_outputs, encoder_feature, encoder_hidden = self.model.encoder(enc_batch, enc_lens)
@@ -157,7 +157,7 @@ class BeamSearch(object):
                                                                                     encoder_outputs, encoder_feature,
                                                                                     enc_padding_mask, c_t_1,
                                                                                     extra_zeros, enc_batch_extend_vocab,
-                                                                                    coverage_t_1, steps)
+                                                                                    coverage_t_1, steps, wr_attention)
             log_probs = torch.log(final_dist)
             topk_log_probs, topk_ids = torch.topk(log_probs, config.beam_size * 2)
 
