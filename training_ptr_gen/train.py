@@ -135,7 +135,7 @@ class Train(object):
             loss = self.train_one_batch(batch)
             running_avg_loss = calc_running_avg_loss(loss, running_avg_loss, self.summary_writer, iter)
             iter += 1
-
+            print(loss)
             if iter % 100 == 0:
                 self.summary_writer.flush()
             print_interval = 1000
