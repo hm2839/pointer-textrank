@@ -103,13 +103,14 @@ class Train(object):
                                                                                            coverage, di, wr_attention)
             target = target_batch[:, di]
             gold_probs = torch.gather(final_dist, 1, target.unsqueeze(1)).squeeze()
-            print(gold_probs + config.eps)
+            print("gold_probs" , gold_probs)
+            print("config.eps" , config.eps)
 
             step_loss = -torch.log(gold_probs + config.eps)
-            print(step_loss)
+
             if config.is_coverage:
                 step_coverage_loss = torch.sum(torch.min(attn_dist, coverage), 1)
-                print(step_loss)
+
                 step_loss = step_loss + config.cov_loss_wt * step_coverage_loss
                 coverage = next_coverage
 
