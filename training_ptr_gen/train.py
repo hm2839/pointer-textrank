@@ -106,14 +106,13 @@ class Train(object):
             if config.is_coverage:
                 step_coverage_loss = torch.sum(torch.min(attn_dist, coverage), 1)
                 step_loss = step_loss + config.cov_loss_wt * step_coverage_loss
+                print(step_loss)
                 coverage = next_coverage
 
             step_mask = dec_padding_mask[:, di]
             step_loss = step_loss * step_mask
             step_losses.append(step_loss)
-
         sum_losses = torch.sum(torch.stack(step_losses, 1), 1)
-        print(sum_losses)
         batch_avg_loss = sum_losses / dec_lens_var
         loss = torch.mean(batch_avg_loss)
 
@@ -134,6 +133,7 @@ class Train(object):
         while iter < n_iters:
             batch = self.batcher.next_batch()
             loss = self.train_one_batch(batch)
+            print("loss: "+loss)
             running_avg_loss = calc_running_avg_loss(loss, running_avg_loss, self.summary_writer, iter)
             iter += 1
 
