@@ -133,7 +133,7 @@ class Train(object):
         while iter < n_iters:
             batch = self.batcher.next_batch()
             loss = self.train_one_batch(batch)
-            print("loss: "+loss)
+            print("loss: ", loss)
             running_avg_loss = calc_running_avg_loss(loss, running_avg_loss, self.summary_writer, iter)
             iter += 1
 
