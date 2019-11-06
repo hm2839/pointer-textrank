@@ -3,16 +3,16 @@ import os
 root_dir = os.path.expanduser("~")
 
 #train_data_path = os.path.join(root_dir, "ptr_nw/cnn-dailymail-master/finished_files/train.bin")
-train_data_path = os.path.join(root_dir, "/experiments/gshs_rne/36a/finished_files/chunked/train_*")
-eval_data_path = os.path.join(root_dir, "/experiments/gshs_rne/36a/finished_files/chunked/val_*")
-decode_data_path = os.path.join(root_dir, "/experiments/gshs_rne/36a/finished_files/test.bin")
-vocab_path = os.path.join(root_dir, "/experiments/gshs_rne/36a/finished_files/vocab")
-log_root = os.path.join(root_dir, "/experiments/gshs_rne/36b/pointer-textrank/log")
+train_data_path = os.path.join(root_dir, "/gshs_rne/36b/finished_files/chunked/train_*")
+eval_data_path = os.path.join(root_dir, "/gshs_rne/36b/finished_files/chunked/val_*")
+decode_data_path = os.path.join(root_dir, "/gshs_rne/36b/finished_files/test.bin")
+vocab_path = os.path.join(root_dir, "/gshs_rne/36b/finished_files/vocab")
+log_root = os.path.join(root_dir, "/gshs_rne/36b/pointer-textrank/log")
 
 # Hyperparameters
 hidden_dim = 256
 emb_dim = 128
-batch_size = 8
+batch_size = 2
 max_enc_steps = 400
 max_dec_steps = 100
 beam_size = 4
