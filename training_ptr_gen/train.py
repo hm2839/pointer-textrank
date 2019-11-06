@@ -1,5 +1,6 @@
 from __future__ import unicode_literals, print_function, division
 
+import math
 import os
 import time
 import argparse
@@ -134,6 +135,9 @@ class Train(object):
             batch = self.batcher.next_batch()
             loss = self.train_one_batch(batch)
             print("loss: ", loss)
+            if(math.isnan(loss)):
+                exit()
+
             running_avg_loss = calc_running_avg_loss(loss, running_avg_loss, self.summary_writer, iter)
             iter += 1
 
