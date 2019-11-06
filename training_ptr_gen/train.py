@@ -103,7 +103,7 @@ class Train(object):
                                                                                            coverage, di, wr_attention)
 
             target = target_batch[:, di]
-            print(target)
+            # print(target)
             gold_probs = torch.gather(final_dist, 1, target.unsqueeze(1)).squeeze()
 
             step_loss = -torch.log(gold_probs + config.eps)
