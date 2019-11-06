@@ -50,7 +50,7 @@ class Train(object):
             'decoder_state_dict': self.model.decoder.state_dict(),
             'reduce_state_dict': self.model.reduce_state.state_dict(),
             'optimizer': self.optimizer.state_dict(),
-            'current_loss': running_avg_loss
+            'current_closs': running_avg_loss
         }
         model_save_path = os.path.join(self.model_dir, 'model_%d_%d' % (iter, int(time.time())))
         torch.save(state, model_save_path)
@@ -103,7 +103,7 @@ class Train(object):
                                                                                            coverage, di, wr_attention)
 
             target = target_batch[:, di]
-            # print(target)
+            print(target)
             gold_probs = torch.gather(final_dist, 1, target.unsqueeze(1)).squeeze()
 
             step_loss = -torch.log(gold_probs + config.eps)
@@ -138,7 +138,7 @@ class Train(object):
         while iter < n_iters:
             batch = self.batcher.next_batch()
             loss = self.train_one_batch(batch)
-            print("loss: ", loss)
+            print("loss: ", loss, "step:",iter)
             if(math.isnan(loss)):
                 exit()
 
