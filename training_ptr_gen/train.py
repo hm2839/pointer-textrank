@@ -105,8 +105,8 @@ class Train(object):
             step_loss = -torch.log(gold_probs + config.eps)
             if config.is_coverage:
                 step_coverage_loss = torch.sum(torch.min(attn_dist, coverage), 1)
-                step_loss = step_loss + config.cov_loss_wt * step_coverage_loss
                 print(step_loss)
+                step_loss = step_loss + config.cov_loss_wt * step_coverage_loss
                 coverage = next_coverage
 
             step_mask = dec_padding_mask[:, di]
