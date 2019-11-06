@@ -101,8 +101,9 @@ class Train(object):
                                                                                            extra_zeros,
                                                                                            enc_batch_extend_vocab,
                                                                                            coverage, di, wr_attention)
-            print(target)
+
             target = target_batch[:, di]
+            print(target)
             gold_probs = torch.gather(final_dist, 1, target.unsqueeze(1)).squeeze()
 
             step_loss = -torch.log(gold_probs + config.eps)
