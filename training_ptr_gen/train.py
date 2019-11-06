@@ -113,6 +113,7 @@ class Train(object):
             step_losses.append(step_loss)
 
         sum_losses = torch.sum(torch.stack(step_losses, 1), 1)
+        print(sum_losses)
         batch_avg_loss = sum_losses / dec_lens_var
         loss = torch.mean(batch_avg_loss)
 
@@ -135,7 +136,7 @@ class Train(object):
             loss = self.train_one_batch(batch)
             running_avg_loss = calc_running_avg_loss(loss, running_avg_loss, self.summary_writer, iter)
             iter += 1
-            print(loss)
+
             if iter % 100 == 0:
                 self.summary_writer.flush()
             print_interval = 1000
